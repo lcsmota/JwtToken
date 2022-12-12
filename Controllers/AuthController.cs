@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult<User>> Register(UserDTO userDTO)
+    public ActionResult<User> Register(UserDTO userDTO)
     {
         CreatePasswordHash(userDTO.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
@@ -33,7 +33,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<string>> Login(UserDTO userDTO)
+    public ActionResult<string> Login(UserDTO userDTO)
     {
         if (createdUser.Email != userDTO.Email)
             return NotFound("User not found");
