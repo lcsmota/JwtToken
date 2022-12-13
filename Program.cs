@@ -49,6 +49,9 @@ var builder = WebApplication.CreateBuilder(args);
                 ValidateAudience = false
             };
         });
+
+    builder.Services.AddCors(opt => opt.AddPolicy(name: "Origins", policy =>
+        policy.WithOrigins("https://localhost:7169").AllowAnyMethod().AllowAnyHeader()));
 }
 
 var app = builder.Build();
@@ -58,6 +61,8 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+
+    app.UseCors("Origins");
 
     app.UseHttpsRedirection();
 
